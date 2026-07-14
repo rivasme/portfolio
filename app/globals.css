@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+:root {
+  --app-height: 100dvh;
+}
 
 @custom-variant dark (&:is(.dark *));
 

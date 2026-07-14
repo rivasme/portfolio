@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PanelLeft, SquarePen, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SideNav from "./side-nav";
@@ -11,8 +11,24 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
 
+  /* Track visual viewport height so keyboard-open shrinks the layout on iOS */
+  useEffect(() => {
+    const vv = window.visualViewport;
+    const update = () => {
+      const h = vv ? vv.height : window.innerHeight;
+      document.documentElement.style.setProperty("--app-height", `${h}px`);
+    };
+    update();
+    vv?.addEventListener("resize", update);
+    window.addEventListener("resize", update);
+    return () => {
+      vv?.removeEventListener("resize", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
   return (
-    <div className="flex h-dvh w-full overflow-hidden">
+    <div className="flex w-full overflow-hidden" style={{ height: "var(--app-height)" }}>
       <SideNav
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
@@ -48,25 +64,25 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <button
             onClick={() => setSidebarOpen(true)}
             className={cn(
-              "flex h-11 w-11 items-center justify-center rounded-xl",
+              "flex h-12 w-12 items-center justify-center rounded-xl",
               "text-muted-foreground transition-all duration-150",
               "hover:bg-white/[0.08] hover:text-foreground active:scale-95",
             )}
             aria-label="Open menu"
           >
-            <PanelLeft size={15} />
+            <PanelLeft size={20} />
           </button>
 
           <button
             onClick={() => window.dispatchEvent(new CustomEvent("ramble:newchat"))}
             className={cn(
-              "flex h-11 w-11 items-center justify-center rounded-xl",
+              "flex h-12 w-12 items-center justify-center rounded-xl",
               "text-muted-foreground transition-all duration-150",
               "hover:bg-white/[0.08] hover:text-foreground active:scale-95",
             )}
             aria-label="New conversation"
           >
-            <SquarePen size={14} />
+            <SquarePen size={18} />
           </button>
         </header>
 

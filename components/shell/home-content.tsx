@@ -22,7 +22,7 @@ function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
       >
         <div className="flex items-start gap-2">
           <span
-            className="font-light leading-none text-[59px] lg:text-[84px]"
+            className="font-light leading-none text-[50px] lg:text-[84px]"
             style={{ letterSpacing: "-3px", color: "#C3C0BB" }}
           >
             ramble
@@ -43,7 +43,7 @@ function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
       >
         <div className="mx-auto max-w-[740px]">
           <p
-            className="mb-2 text-[12px] leading-5 text-center"
+            className="mb-2 text-[10px] sm:text-[12px] leading-4 sm:leading-5 text-center"
             style={{ color: "rgba(210,207,203,0.75)" }}
           >
             <span style={{ color: "var(--brand-teal-400)" }}>Tangent 90°</span>
