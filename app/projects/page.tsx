@@ -86,7 +86,7 @@ export default function ProjectsPage() {
           {/* Header row */}
           <div className="flex items-center justify-between">
             <h1
-              className="text-[24px] font-semibold leading-[29px] text-foreground"
+              className="text-[18px] lg:text-[24px] font-semibold leading-[22px] lg:leading-[29px] text-foreground"
               style={{ letterSpacing: "-0.5px" }}
             >
               Projects
@@ -94,11 +94,11 @@ export default function ProjectsPage() {
 
             <div className="flex items-center gap-4">
               {/* Sort by dropdown */}
-              <div ref={dropdownRef} className="relative flex items-center gap-2">
-                <span className="text-[14px] leading-5 text-muted-foreground">Sort by</span>
+              <div ref={dropdownRef} className="relative flex items-center gap-1.5 lg:gap-2">
+                <span className="text-[12px] lg:text-[14px] leading-5 text-muted-foreground">Sort by</span>
                 <button
                   onClick={() => setDropdownOpen((v) => !v)}
-                  className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[14px] leading-5 text-foreground border border-border transition-colors hover:bg-[rgba(210,207,203,0.06)]"
+                  className="flex items-center gap-1 lg:gap-1.5 rounded-full px-2.5 py-1 lg:px-3 lg:py-1.5 text-[12px] lg:text-[14px] leading-5 text-foreground border border-border transition-colors hover:bg-[rgba(210,207,203,0.06)]"
                   style={{ background: "rgba(210,207,203,0.1)", boxShadow: "0 1px 2px 0 rgba(0,0,0,0.05)" }}
                 >
                   {sortLabel}
@@ -138,7 +138,7 @@ export default function ProjectsPage() {
 
               {/* New Project — always loading */}
               <div
-                className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[14px] font-medium leading-5 select-none"
+                className="flex items-center gap-1 lg:gap-1.5 rounded-full px-2.5 py-1 lg:px-3 lg:py-1.5 text-[12px] lg:text-[14px] font-medium leading-5 select-none"
                 style={{
                   background: "var(--foreground)",
                   color: "var(--background)",

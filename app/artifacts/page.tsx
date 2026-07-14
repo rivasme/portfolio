@@ -1397,7 +1397,7 @@ export default function ArtifactsPage() {
 
           <div className="flex items-center justify-between gap-4">
             <h1
-              className="text-[24px] font-semibold leading-[29px] text-foreground"
+              className="text-[18px] lg:text-[24px] font-semibold leading-[22px] lg:leading-[29px] text-foreground"
               style={{ letterSpacing: "-0.5px" }}
             >
               Artifacts

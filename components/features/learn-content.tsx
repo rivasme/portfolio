@@ -258,7 +258,7 @@ export default function LearnContent() {
         {/* Header */}
         <div className="flex flex-col gap-2">
           <h1
-            className="text-[24px] font-semibold leading-[29px] text-foreground"
+            className="text-[18px] lg:text-[24px] font-semibold leading-[22px] lg:leading-[29px] text-foreground"
             style={{ letterSpacing: "-0.5px" }}
           >
             Learn

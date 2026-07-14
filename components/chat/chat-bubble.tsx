@@ -79,7 +79,7 @@ function PlaceholderOverlay({ show }: { show: boolean }) {
       </span>
       {showBadge && (
         <span
-          className="ml-0.5 rounded-lg px-1 py-[4px] font-mono text-[14px] leading-none"
+          className="ml-0.5 rounded-lg px-1 py-[4px] font-mono text-[13px] lg:text-[14px] leading-none"
           style={{
             color: "var(--brand-teal-400)",
             border: "1px solid var(--border)",
