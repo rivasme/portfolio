@@ -76,8 +76,8 @@ export default function SlashMenu({ query, onSelect, onClose, anchorRef }: Slash
       aria-label="Commands"
       className={cn(
         "absolute bottom-full left-0 mb-2 z-50 w-full max-w-[289px]",
-        "rounded-xl border border-border bg-popover shadow-2xl overflow-hidden",
-        "py-1.5",
+        "rounded-xl border border-border bg-popover shadow-2xl",
+        "py-1.5 overflow-y-auto max-h-[55vh]",
         "animate-[fade-up_150ms_ease-out]",
       )}
     >

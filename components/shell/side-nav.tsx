@@ -12,7 +12,6 @@ import {
 import { cn } from "@/lib/utils";
 import MonolithModal from "./monolith-modal";
 import ShortcutsModal from "./shortcuts-modal";
-import AboutPopover from "./about-popover";
 
 /* ─── Data ────────────────────────────────────────────────────────────────── */
 const NAV_ITEMS: Array<
@@ -56,7 +55,12 @@ function HistoryItem({ title, onSelect }: {
   const router = useRouter();
   const handleClick = () => {
     onSelect?.();
-    router.push("/");
+    if (window.location.pathname !== "/") {
+      router.push("/");
+      setTimeout(() => window.dispatchEvent(new CustomEvent("ramble:query", { detail: { query: title } })), 200);
+    } else {
+      window.dispatchEvent(new CustomEvent("ramble:query", { detail: { query: title } }));
+    }
   };
   return (
     <button
@@ -89,7 +93,6 @@ export default function SideNav({
   const historyRef = useRef<HTMLDivElement>(null);
   const [monolithOpen, setMonolithOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
 
   useEffect(() => {
@@ -388,16 +391,14 @@ export default function SideNav({
             </div>
 
             {/* About ramble AI — mobile/tablet only */}
-            <div className={cn("lg:hidden px-2 relative", isCollapsed && "flex justify-center")}>
+            <div className={cn("lg:hidden px-2", isCollapsed && "flex justify-center")}>
               <button
-                onClick={(e) => { e.stopPropagation(); setAboutOpen((v) => !v); }}
+                onClick={() => { onClose?.(); window.dispatchEvent(new CustomEvent("ramble:about")); }}
                 title="About ramble AI"
                 className={cn(
                   "flex items-center gap-2 rounded-md transition-colors duration-100 text-left",
                   isCollapsed ? "h-8 w-8 justify-center" : "h-8 w-full px-3",
-                  aboutOpen
-                    ? "bg-[rgba(210,207,203,0.08)] text-foreground"
-                    : "text-[#a19d96] hover:bg-[rgba(210,207,203,0.06)]",
+                  "text-[#a19d96] hover:bg-[rgba(210,207,203,0.06)]",
                 )}
               >
                 <Info size={14} className="shrink-0" aria-hidden />
@@ -405,7 +406,6 @@ export default function SideNav({
                   <span className="text-[14px] leading-5 font-normal">about ramble AI</span>
                 )}
               </button>
-              {aboutOpen && <AboutPopover onClose={() => setAboutOpen(false)} anchor="center" />}
             </div>
 
             {/* Separator */}
