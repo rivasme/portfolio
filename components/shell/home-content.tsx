@@ -1,6 +1,6 @@
 "use client";
 
-import {
+import React, {
   useCallback,
   useEffect,
   useRef,
@@ -96,15 +96,23 @@ function ConversationView({
   streaming: boolean;
   onSubmit: (v: string) => void;
 }) {
-  const bottomRef   = useRef<HTMLDivElement>(null);
-  const scrollRef   = useRef<HTMLDivElement>(null);
-  const isFirstRender = useRef(true);
+  const bottomRef      = useRef<HTMLDivElement>(null);
+  const lastMsgRef     = useRef<HTMLDivElement>(null);
+  const scrollRef      = useRef<HTMLDivElement>(null);
+  const isFirstRender  = useRef(true);
   const [showScrollBtn, setShowScrollBtn] = useState(false);
 
   useEffect(() => {
+    if (messages.length === 0) return;
+    const last = messages[messages.length - 1];
     const behavior = isFirstRender.current ? "auto" : "smooth";
     isFirstRender.current = false;
-    bottomRef.current?.scrollIntoView({ behavior });
+    const isRichContent = Boolean(last.contentType && !last.thinking && last.contentType !== "error");
+    if (isRichContent) {
+      lastMsgRef.current?.scrollIntoView({ behavior, block: "start" });
+    } else {
+      bottomRef.current?.scrollIntoView({ behavior });
+    }
   }, [messages]);
 
   useEffect(() => {
@@ -127,8 +135,11 @@ function ConversationView({
       {/* Messages */}
       <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden scrollbar-thin">
         <div className="mx-auto max-w-[740px] w-full py-8 flex flex-col gap-6 px-4">
-          {messages.map((msg) => (
-            <Message key={msg.id} message={msg} />
+          {messages.map((msg, i) => (
+            <React.Fragment key={msg.id}>
+              {i === messages.length - 1 && <div ref={lastMsgRef} className="h-0" />}
+              <Message message={msg} />
+            </React.Fragment>
           ))}
           <div ref={bottomRef} />
         </div>

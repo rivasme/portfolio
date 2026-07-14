@@ -78,7 +78,8 @@ export default function PortfolioContent() {
             ? dispatchProject(cs.slug)
             : dispatchQuery(cs.title)
         }
-                className="font-semibold text-foreground underline underline-offset-2 decoration-white-alpha-30 hover:decoration-foreground transition-colors cursor-pointer"
+                className="font-semibold text-foreground hover:opacity-70 transition-opacity cursor-pointer"
+                style={{ textDecoration: "underline", textDecorationColor: "rgba(210,207,203,0.30)", textUnderlineOffset: "2px" }}
               >
                 {cs.title}
               </button>
