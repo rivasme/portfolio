@@ -294,16 +294,16 @@ export default function ChatBubble({
         </div>
 
         {/* Toolbar */}
-        <div className="flex items-center justify-between px-2 pb-2 pt-0.5 lg:px-5 lg:pb-3 lg:pt-1">
+        <div className="flex items-center justify-between px-2 pb-2 pt-2 lg:px-5 lg:pb-3 lg:pt-1">
           {/* Left: add attachment (disabled — feature not available) */}
           <div className="relative group">
             <button
               type="button"
               disabled
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground opacity-50 cursor-not-allowed"
+              className="flex h-9 w-9 lg:h-8 lg:w-8 items-center justify-center rounded-lg text-muted-foreground opacity-50 cursor-not-allowed"
               aria-label="Add attachment"
             >
-              <Plus size={16} />
+              <Plus size={18} />
             </button>
             <div className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-50 whitespace-nowrap">
               <div
@@ -343,10 +343,10 @@ export default function ChatBubble({
               <button
                 type="button"
                 disabled
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground opacity-50 cursor-not-allowed"
+                className="flex h-9 w-9 lg:h-8 lg:w-8 items-center justify-center rounded-lg text-muted-foreground opacity-50 cursor-not-allowed"
                 aria-label="Voice input"
               >
-                <Mic size={16} />
+                <Mic size={18} />
               </button>
               <div className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-50 whitespace-nowrap">
                 <div
@@ -365,7 +365,7 @@ export default function ChatBubble({
               disabled={disabled || (isEmpty && !streaming)}
               aria-label={streaming ? "Generating…" : "Send message"}
               className={cn(
-                "flex h-8 w-8 items-center justify-center rounded-full",
+                "flex h-9 w-9 lg:h-8 lg:w-8 items-center justify-center rounded-full",
                 "transition-all duration-150",
                 isEmpty && !streaming
                   ? "opacity-25 cursor-not-allowed"
@@ -379,9 +379,9 @@ export default function ChatBubble({
               }}
             >
               {streaming ? (
-                <Loader2 size={15} className="animate-spin" />
+                <Loader2 size={17} className="animate-spin" />
               ) : (
-                <AudioWaveform size={15} />
+                <AudioWaveform size={17} />
               )}
             </button>
           </div>
@@ -389,7 +389,7 @@ export default function ChatBubble({
       </div>
 
       {/* Footer disclaimer */}
-      <p className="mt-2 text-left lg:text-center text-[11px] text-muted-foreground/40 select-none">
+      <p className="mt-2 px-2 lg:px-0 text-left lg:text-center text-[11px] text-muted-foreground/40 select-none">
         ramble is an advanced AI and does not make mistakes. It's mostly user errors.
       </p>
     </div>

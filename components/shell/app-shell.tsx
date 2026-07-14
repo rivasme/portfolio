@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { PanelLeft, SquarePen, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SideNav from "./side-nav";
 import AboutPopover from "./about-popover";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -58,7 +60,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </button>
 
           <button
-            onClick={() => window.dispatchEvent(new CustomEvent("ramble:newchat"))}
+            onClick={() => {
+              if (window.location.pathname !== "/") {
+                router.push("/");
+                setTimeout(() => window.dispatchEvent(new CustomEvent("ramble:newchat")), 150);
+              } else {
+                window.dispatchEvent(new CustomEvent("ramble:newchat"));
+              }
+            }}
             className={cn(
               "flex h-12 w-12 items-center justify-center rounded-xl",
               "text-muted-foreground transition-all duration-150",
