@@ -32,7 +32,7 @@ export default function ProjectDetailPage() {
 
   return (
     <AppShell>
-      <div className="flex-1">
+      <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden scrollbar-thin">
         {/* Sticky breadcrumb — inside the scroll area so it sticks to main's scroll */}
         <div
           className="sticky top-0 z-10"

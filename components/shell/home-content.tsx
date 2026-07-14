@@ -14,7 +14,7 @@ import Message, { type ChatMessage } from "@/components/chat/message";
 /* ─── Landing view ───────────────────────────────────────────────────────── */
 function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col min-h-0">
       {/* Logo — flex-1 so it fills all space above the bubble and stays centered */}
       <div
         className="flex flex-1 items-center justify-center"
@@ -93,9 +93,9 @@ function ConversationView({
   }, []);
 
   return (
-    <div className="flex flex-1 flex-col relative">
+    <div className="flex flex-1 flex-col relative min-h-0">
       {/* Messages */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto scrollbar-thin">
+      <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden scrollbar-thin">
         <div className="mx-auto max-w-[740px] w-full py-8 flex flex-col gap-6 px-4">
           {messages.map((msg) => (
             <Message key={msg.id} message={msg} />
