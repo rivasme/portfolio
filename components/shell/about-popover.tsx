@@ -27,8 +27,16 @@ export default function AboutPopover({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
+  const [closeable, setCloseable] = useState(false);
 
   useEffect(() => { setMounted(true); }, []);
+
+  /* Delay backdrop close so iOS ghost-click after tap can't instantly dismiss */
+  useEffect(() => {
+    if (!mounted || anchor !== "center") return;
+    const t = setTimeout(() => setCloseable(true), 250);
+    return () => clearTimeout(t);
+  }, [mounted, anchor]);
 
   /* Desktop popover: click-outside to close */
   useEffect(() => {
@@ -47,7 +55,7 @@ export default function AboutPopover({
       <div
         className="fixed inset-0 z-[9999] flex items-center justify-center p-5"
         style={{ background: "rgba(0,0,0,0.65)", backdropFilter: "blur(4px)", animation: "fade-up 150ms ease-out both" }}
-        onClick={onClose}
+        onClick={(e) => { if (closeable && e.target === e.currentTarget) onClose(); }}
       >
         <div
           ref={ref}
