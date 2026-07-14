@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PanelLeft, SquarePen, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -12,13 +12,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
-
-  /* Mobile about — triggered via event from SideNav so it renders at shell level */
-  useEffect(() => {
-    const handler = () => setAboutOpen(true);
-    window.addEventListener("ramble:about", handler);
-    return () => window.removeEventListener("ramble:about", handler);
-  }, []);
 
   return (
     <div className="fixed inset-0 lg:relative lg:h-dvh flex w-full overflow-hidden">
@@ -93,13 +86,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </main>
       </div>
 
-      {/* About modal — rendered at shell level so it clears all z-index issues */}
-      {aboutOpen && (
-        <AboutPopover
-          anchor="center"
-          onClose={() => setAboutOpen(false)}
-        />
-      )}
     </div>
   );
 }

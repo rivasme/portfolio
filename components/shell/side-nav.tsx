@@ -12,6 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 import MonolithModal from "./monolith-modal";
 import ShortcutsModal from "./shortcuts-modal";
+import AboutPopover from "./about-popover";
 
 /* ─── Data ────────────────────────────────────────────────────────────────── */
 const NAV_ITEMS: Array<
@@ -126,6 +127,7 @@ export default function SideNav({
   const [monolithOpen, setMonolithOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
 
   useEffect(() => {
     if (!historyOpen) return;
@@ -425,7 +427,7 @@ export default function SideNav({
             {/* About ramble AI — mobile/tablet only */}
             <div className={cn("lg:hidden px-2", isCollapsed && "flex justify-center")}>
               <button
-                onClick={() => { onClose?.(); window.dispatchEvent(new CustomEvent("ramble:about")); }}
+                onClick={() => setAboutOpen(true)}
                 title="About ramble AI"
                 className={cn(
                   "flex items-center gap-2 rounded-md transition-colors duration-100 text-left",
@@ -507,6 +509,9 @@ export default function SideNav({
         {shortcutsOpen && <ShortcutsModal onClose={() => setShortcutsOpen(false)} />}
 
       </aside>
+
+      {/* About modal — portal to body so it clears sidebar z-index */}
+      {aboutOpen && <AboutPopover anchor="center" onClose={() => setAboutOpen(false)} />}
     </>
   );
 }
