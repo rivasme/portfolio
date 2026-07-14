@@ -161,9 +161,38 @@ export default function HomeContent() {
   const [streaming, setStreaming] = useState(false);
   const hasMessages = messages.length > 0;
 
+  /* Seed history with empty state on first load so swipe-back lands on landing */
+  useEffect(() => {
+    history.replaceState({ messages: [] }, "");
+  }, []);
+
+  /* Swipe back / forward: restore the snapshotted messages */
+  useEffect(() => {
+    const handler = (e: PopStateEvent) => {
+      const msgs = (e.state as { messages?: ChatMessage[] } | null)?.messages ?? [];
+      setMessages(msgs);
+      setStreaming(false);
+    };
+    window.addEventListener("popstate", handler);
+    return () => window.removeEventListener("popstate", handler);
+  }, []);
+
+  /* Push a history entry each time streaming completes */
+  const prevStreamingRef = useRef(false);
+  useEffect(() => {
+    if (prevStreamingRef.current && !streaming && messages.length > 0) {
+      history.pushState({ messages }, "");
+    }
+    prevStreamingRef.current = streaming;
+  }, [streaming, messages]);
+
   /* Reset chat when the "New chat" nav item fires the custom event */
   useEffect(() => {
-    const handler = () => { setMessages([]); setStreaming(false); };
+    const handler = () => {
+      setMessages([]);
+      setStreaming(false);
+      history.replaceState({ messages: [] }, "");
+    };
     window.addEventListener("ramble:newchat", handler);
     return () => window.removeEventListener("ramble:newchat", handler);
   }, []);
