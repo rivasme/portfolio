@@ -72,7 +72,7 @@ function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
       >
         <div className="mx-auto max-w-[740px]">
           <p
-            className="mb-2 text-[10px] sm:text-[12px] leading-4 sm:leading-5 text-center"
+            className="mb-2 text-[10px] sm:text-[12px] leading-4 sm:leading-5 text-left"
             style={{ color: "rgba(210,207,203,0.75)" }}
           >
             <span style={{ color: "var(--brand-teal-400)" }}>Tangent 90°</span>
@@ -155,7 +155,7 @@ function ConversationView({
       {/* Input — pinned to bottom, safe area on iOS */}
       <div className="shrink-0 px-4 pt-3" style={{ paddingBottom: "max(16px, env(safe-area-inset-bottom))" }}>
         <div className="mx-auto max-w-[740px] w-full">
-          <p className="mb-2 text-[12px] leading-5 text-center font-medium" style={{ color: "rgba(210,207,203,1)" }}>
+          <p className="mb-2 text-[12px] leading-5 text-left lg:text-center font-medium" style={{ color: "rgba(210,207,203,1)" }}>
             <span style={{ color: "var(--brand-teal-400)" }}>Tangent 90°</span>
             {" "}access has been extended until July 27, 2026, or until Sol ships, whichever comes first.
           </p>
