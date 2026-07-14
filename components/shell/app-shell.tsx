@@ -50,13 +50,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <button
             onClick={() => setSidebarOpen(true)}
             className={cn(
-              "flex h-12 w-12 items-center justify-center rounded-xl",
+              "flex h-10 w-10 items-center justify-center rounded-full",
               "text-muted-foreground transition-all duration-150",
-              "hover:bg-white/[0.08] hover:text-foreground active:scale-95",
+              "hover:opacity-80 active:scale-95",
             )}
+            style={{ background: "var(--secondary)" }}
             aria-label="Open menu"
           >
-            <PanelLeft size={20} />
+            <PanelLeft size={18} />
           </button>
 
           <button
@@ -69,10 +70,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               }
             }}
             className={cn(
-              "flex h-12 w-12 items-center justify-center rounded-xl",
+              "flex h-10 w-10 items-center justify-center rounded-full",
               "text-muted-foreground transition-all duration-150",
-              "hover:bg-white/[0.08] hover:text-foreground active:scale-95",
+              "hover:opacity-80 active:scale-95",
             )}
+            style={{ background: "var(--secondary)" }}
             aria-label="New conversation"
           >
             <SquarePen size={18} />

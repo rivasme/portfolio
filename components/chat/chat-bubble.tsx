@@ -74,7 +74,7 @@ function PlaceholderOverlay({ show }: { show: boolean }) {
       aria-hidden
       className="pointer-events-none absolute left-3 top-2.5 flex items-center select-none lg:left-6 lg:top-4"
     >
-      <span className="text-[15px] leading-6 text-muted-foreground/50">
+      <span className="text-[13px] lg:text-[15px] leading-6 text-muted-foreground/50">
         {displayed}
       </span>
       {showBadge && (
@@ -244,7 +244,7 @@ export default function ChatBubble({
           {slashBadges.length > 0 && !showPlaceholder && (
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-x-3 top-2.5 text-[15px] leading-6 whitespace-pre-wrap break-words select-none overflow-hidden lg:inset-x-6 lg:top-4"
+              className="pointer-events-none absolute inset-x-3 top-2.5 text-[13px] lg:text-[15px] leading-6 whitespace-pre-wrap break-words select-none overflow-hidden lg:inset-x-6 lg:top-4"
               style={{ maxHeight: 160 }}
             >
               {value.split(/(\/[a-zA-Z][\w-]*)/).map((part, i) =>
@@ -286,7 +286,7 @@ export default function ChatBubble({
           {streaming && (
             <div
               aria-hidden
-              className="pointer-events-none absolute left-3 top-2.5 text-[15px] leading-6 text-muted-foreground/40 select-none lg:left-6 lg:top-4"
+              className="pointer-events-none absolute left-3 top-2.5 text-[13px] lg:text-[15px] leading-6 text-muted-foreground/40 select-none lg:left-6 lg:top-4"
             >
               Type a message…
             </div>
@@ -390,7 +390,7 @@ export default function ChatBubble({
 
       {/* Footer disclaimer */}
       <p className="mt-2 px-2 lg:px-0 text-left lg:text-center text-[11px] text-muted-foreground/40 select-none">
-        ramble is an advanced AI and does not make mistakes. It's mostly user errors.
+        This advance AI does not make mistakes. It's mostly user errors.
       </p>
     </div>
   );
