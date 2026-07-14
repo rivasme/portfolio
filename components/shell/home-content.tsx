@@ -14,7 +14,7 @@ import Message, { type ChatMessage } from "@/components/chat/message";
 /* ─── Landing view ───────────────────────────────────────────────────────── */
 function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
   return (
-    <div className="flex flex-1 flex-col min-h-0">
+    <div className="flex flex-1 flex-col">
       {/* Logo — flex-1 so it fills all space above the bubble and stays centered */}
       <div
         className="flex flex-1 items-center justify-center"
