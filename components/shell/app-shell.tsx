@@ -14,7 +14,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [aboutOpen, setAboutOpen] = useState(false);
 
   return (
-    <div className="flex h-dvh w-full overflow-hidden">
+    <div className="fixed inset-0 lg:relative lg:h-dvh flex w-full overflow-hidden">
       <SideNav
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}

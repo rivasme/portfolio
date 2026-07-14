@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface SlashCommand {
@@ -86,7 +87,7 @@ export default function SlashMenu({ query, onSelect, onClose, anchorRef }: Slash
     <div
       ref={menuRef}
       role="listbox"
-      aria-label="Skills"
+      aria-label="Commands"
       className={cn(
         "absolute bottom-full left-0 mb-2 z-50 w-[289px]",
         "rounded-xl border border-border bg-popover shadow-2xl overflow-hidden",
@@ -108,13 +109,7 @@ export default function SlashMenu({ query, onSelect, onClose, anchorRef }: Slash
               : "text-muted-foreground hover:bg-sidebar-accent hover:text-foreground",
           )}
         >
-          <span
-            aria-hidden
-            className="shrink-0 text-[13px] leading-none select-none w-4 text-center"
-            style={{ fontFamily: '"Font Awesome 7 Pro"', fontWeight: 300 }}
-          >
-            file-lines
-          </span>
+          <FileText size={13} className="shrink-0 opacity-60" />
           <span className="flex flex-col min-w-0">
             <span className="text-[13px] leading-snug">{cmd.label}</span>
             {cmd.desc && (
