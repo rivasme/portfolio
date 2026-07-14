@@ -15,30 +15,59 @@ import Message, { type ChatMessage } from "@/components/chat/message";
 function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
   return (
     <div className="flex flex-1 flex-col">
-      {/* Logo — flex-1 so it fills all space above the bubble and stays centered */}
+
+      {/* ── Desktop (lg+): logo + bubble grouped and centered together ──────── */}
+      <div className="hidden lg:flex flex-1 items-center justify-center px-8">
+        <div className="w-full max-w-[740px] flex flex-col items-center gap-10" style={{ animation: "fade-up 300ms ease-out" }}>
+          <div className="flex items-start gap-2">
+            <span
+              className="font-light leading-none text-[84px]"
+              style={{ letterSpacing: "-3px", color: "#C3C0BB" }}
+            >
+              ramble
+            </span>
+            <span
+              className="mt-3 rounded-lg px-1.5 py-0.5 text-[11px] font-semibold leading-none tracking-wider"
+              style={{ background: "var(--brand-teal-950)", color: "var(--brand-teal-400)" }}
+            >
+              AI
+            </span>
+          </div>
+          <div className="w-full">
+            <p
+              className="mb-2 text-[12px] leading-5 text-center"
+              style={{ color: "rgba(210,207,203,0.75)" }}
+            >
+              <span style={{ color: "var(--brand-teal-400)" }}>Tangent 90°</span>
+              {" "}access has been extended until July 27, 2026, or until Sol ships, whichever comes first.
+            </p>
+            <ChatBubble onSubmit={onSubmit} />
+          </div>
+        </div>
+      </div>
+
+      {/* ── Mobile (< lg): logo fills space, bubble pinned to bottom ────────── */}
       <div
-        className="flex flex-1 items-center justify-center"
+        className="lg:hidden flex flex-1 items-center justify-center"
         style={{ animation: "fade-up 300ms ease-out" }}
       >
         <div className="flex items-start gap-2">
           <span
-            className="font-light leading-none text-[50px] lg:text-[84px]"
+            className="font-light leading-none text-[50px]"
             style={{ letterSpacing: "-3px", color: "#C3C0BB" }}
           >
             ramble
           </span>
           <span
-            className="mt-2 lg:mt-3 rounded-lg px-1.5 py-0.5 text-[11px] font-semibold leading-none tracking-wider"
+            className="mt-2 rounded-lg px-1.5 py-0.5 text-[11px] font-semibold leading-none tracking-wider"
             style={{ background: "var(--brand-teal-950)", color: "var(--brand-teal-400)" }}
           >
             AI
           </span>
         </div>
       </div>
-
-      {/* Chat bubble pinned to bottom — access notice sits just above it */}
       <div
-        className="shrink-0 w-full px-3 lg:px-8"
+        className="lg:hidden shrink-0 w-full px-3"
         style={{ paddingBottom: "max(16px, env(safe-area-inset-bottom))", animation: "fade-up 380ms ease-out" }}
       >
         <div className="mx-auto max-w-[740px]">
@@ -52,6 +81,7 @@ function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
           <ChatBubble onSubmit={onSubmit} />
         </div>
       </div>
+
     </div>
   );
 }
