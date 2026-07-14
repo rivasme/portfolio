@@ -14,13 +14,13 @@ import Message, { type ChatMessage } from "@/components/chat/message";
 /* ─── Landing view ───────────────────────────────────────────────────────── */
 function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
   return (
-    <div className="flex h-full w-full flex-col overflow-x-hidden">
-      {/* Logo — flex-1 keeps it centered in remaining space above bubble */}
+    <div className="flex flex-1 flex-col">
+      {/* Logo — flex-1 so it fills all space above the bubble and stays centered */}
       <div
-        className="flex flex-1 flex-col items-center justify-center px-4"
+        className="flex flex-1 items-center justify-center"
         style={{ animation: "fade-up 300ms ease-out" }}
       >
-        <div className="mb-3 flex items-start gap-2">
+        <div className="flex items-start gap-2">
           <span
             className="font-light leading-none text-[59px] lg:text-[84px]"
             style={{ letterSpacing: "-3px", color: "#C3C0BB" }}
@@ -34,21 +34,21 @@ function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
             AI
           </span>
         </div>
-        <p
-          className="text-[12px] leading-5 text-center"
-          style={{ color: "rgba(210,207,203,0.75)", animation: "fade-up 360ms ease-out" }}
-        >
-          <span style={{ color: "var(--brand-teal-400)" }}>Tangent 90°</span>
-          {" "}access has been extended until July 27, 2026, or until Sol ships, whichever comes first.
-        </p>
       </div>
 
-      {/* Chat bubble — pinned to bottom; sits above keyboard when focused */}
+      {/* Chat bubble pinned to bottom — access notice sits just above it */}
       <div
-        className="w-full shrink-0 px-3 lg:px-8"
+        className="shrink-0 w-full px-3 lg:px-8"
         style={{ paddingBottom: "max(16px, env(safe-area-inset-bottom))", animation: "fade-up 380ms ease-out" }}
       >
         <div className="mx-auto max-w-[740px]">
+          <p
+            className="mb-2 text-[12px] leading-5 text-center"
+            style={{ color: "rgba(210,207,203,0.75)" }}
+          >
+            <span style={{ color: "var(--brand-teal-400)" }}>Tangent 90°</span>
+            {" "}access has been extended until July 27, 2026, or until Sol ships, whichever comes first.
+          </p>
           <ChatBubble onSubmit={onSubmit} />
         </div>
       </div>
@@ -93,7 +93,7 @@ function ConversationView({
   }, []);
 
   return (
-    <div className="flex h-full flex-col relative">
+    <div className="flex flex-1 flex-col relative">
       {/* Messages */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto scrollbar-thin">
         <div className="mx-auto max-w-[740px] w-full py-8 flex flex-col gap-6 px-4">

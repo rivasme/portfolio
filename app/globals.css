@@ -175,6 +175,8 @@
   html {
     @apply font-sans antialiased;
     color-scheme: dark;
+    height: 100%;
+    overflow-x: hidden;
   }
 
   /* prevent stroke clipping on Lucide SVG icons */

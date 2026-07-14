@@ -70,7 +70,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </button>
         </header>
 
-        <main className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-thin">
+        <main className="flex flex-1 flex-col min-h-0 overflow-hidden">
           {children}
         </main>
       </div>
