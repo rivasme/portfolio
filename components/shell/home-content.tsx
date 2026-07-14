@@ -14,48 +14,43 @@ import Message, { type ChatMessage } from "@/components/chat/message";
 /* ─── Landing view ───────────────────────────────────────────────────────── */
 function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center px-4 pb-6">
-      {/* Wordmark + AI badge */}
+    <div className="flex h-full w-full flex-col overflow-x-hidden">
+      {/* Logo — flex-1 keeps it centered in remaining space above bubble */}
       <div
-        className="mb-6 flex items-start gap-2"
+        className="flex flex-1 flex-col items-center justify-center px-4"
         style={{ animation: "fade-up 300ms ease-out" }}
       >
-        <span
-          className="font-light leading-none"
-          style={{
-            fontSize: "84px",
-            letterSpacing: "-3px",
-            color: "#C3C0BB",
-          }}
+        <div className="mb-3 flex items-start gap-2">
+          <span
+            className="font-light leading-none text-[59px] lg:text-[84px]"
+            style={{ letterSpacing: "-3px", color: "#C3C0BB" }}
+          >
+            ramble
+          </span>
+          <span
+            className="mt-2 lg:mt-3 rounded-lg px-1.5 py-0.5 text-[11px] font-semibold leading-none tracking-wider"
+            style={{ background: "var(--brand-teal-950)", color: "var(--brand-teal-400)" }}
+          >
+            AI
+          </span>
+        </div>
+        <p
+          className="text-[12px] leading-5 text-center"
+          style={{ color: "rgba(210,207,203,0.75)", animation: "fade-up 360ms ease-out" }}
         >
-          ramble
-        </span>
-        <span
-          className="mt-3 rounded-lg px-1.5 py-0.5 text-[11px] font-semibold leading-none tracking-wider"
-          style={{
-            background: "var(--brand-teal-950)",
-            color: "var(--brand-teal-400)",
-          }}
-        >
-          AI
-        </span>
+          <span style={{ color: "var(--brand-teal-400)" }}>Tangent 90°</span>
+          {" "}access has been extended until July 27, 2026, or until Sol ships, whichever comes first.
+        </p>
       </div>
 
-      {/* Access notice */}
-      <p
-        className="mb-3 text-[12px] leading-5 text-center"
-        style={{ color: "rgba(210,207,203,0.75)", animation: "fade-up 360ms ease-out" }}
-      >
-        <span style={{ color: "var(--brand-teal-400)" }}>Tangent 90°</span>
-        {" "}access has been extended until July 27, 2026, or until Sol ships, whichever comes first.
-      </p>
-
-      {/* Chat bubble */}
+      {/* Chat bubble — pinned to bottom; sits above keyboard when focused */}
       <div
-        className="w-full max-w-[740px]"
-        style={{ animation: "fade-up 380ms ease-out" }}
+        className="w-full shrink-0 px-3 lg:px-8"
+        style={{ paddingBottom: "max(16px, env(safe-area-inset-bottom))", animation: "fade-up 380ms ease-out" }}
       >
-        <ChatBubble onSubmit={onSubmit} />
+        <div className="mx-auto max-w-[740px]">
+          <ChatBubble onSubmit={onSubmit} />
+        </div>
       </div>
     </div>
   );

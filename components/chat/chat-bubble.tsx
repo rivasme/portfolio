@@ -72,7 +72,7 @@ function PlaceholderOverlay({ show }: { show: boolean }) {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute left-6 top-4 flex items-center select-none"
+      className="pointer-events-none absolute left-4 top-3.5 flex items-center select-none sm:left-6 sm:top-4"
     >
       <span className="text-[15px] leading-6 text-muted-foreground/50">
         {displayed}
@@ -237,14 +237,14 @@ export default function ChatBubble({
         )}
 
         {/* Text input area */}
-        <div className="relative px-6 pt-4 pb-2">
+        <div className="relative px-4 pt-3.5 pb-2 sm:px-6 sm:pt-4">
           <PlaceholderOverlay show={showPlaceholder} />
 
           {/* Colored mirror — shows /commands in orange mono, sits under transparent textarea */}
           {slashBadges.length > 0 && !showPlaceholder && (
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-x-6 top-4 text-[15px] leading-6 whitespace-pre-wrap break-words select-none overflow-hidden"
+              className="pointer-events-none absolute inset-x-4 top-3.5 text-[15px] leading-6 whitespace-pre-wrap break-words select-none overflow-hidden sm:inset-x-6 sm:top-4"
               style={{ maxHeight: 160 }}
             >
               {value.split(/(\/[a-zA-Z][\w-]*)/).map((part, i) =>
@@ -286,7 +286,7 @@ export default function ChatBubble({
           {streaming && (
             <div
               aria-hidden
-              className="pointer-events-none absolute left-6 top-4 text-[15px] leading-6 text-muted-foreground/40 select-none"
+              className="pointer-events-none absolute left-4 top-3.5 text-[15px] leading-6 text-muted-foreground/40 select-none sm:left-6 sm:top-4"
             >
               Type a message…
             </div>
@@ -294,7 +294,7 @@ export default function ChatBubble({
         </div>
 
         {/* Toolbar */}
-        <div className="flex items-center justify-between px-5 pb-3 pt-1">
+        <div className="flex items-center justify-between px-3 pb-2.5 pt-1 sm:px-5 sm:pb-3">
           {/* Left: add attachment (disabled — feature not available) */}
           <div className="relative group">
             <button
