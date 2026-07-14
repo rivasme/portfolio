@@ -55,12 +55,7 @@ function HistoryItem({ title, onSelect }: {
   const router = useRouter();
   const handleClick = () => {
     onSelect?.();
-    if (window.location.pathname !== "/") {
-      router.push("/");
-      setTimeout(() => window.dispatchEvent(new CustomEvent("ramble:query", { detail: { query: title } })), 200);
-    } else {
-      window.dispatchEvent(new CustomEvent("ramble:query", { detail: { query: title } }));
-    }
+    router.push("/");
   };
   return (
     <button
