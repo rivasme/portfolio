@@ -227,6 +227,19 @@ export default function HomeContent() {
     return () => window.removeEventListener("ramble:newchat", handler);
   }, []);
 
+  /* Restore a fake history conversation — no generation, just set messages */
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const msgs = (e as CustomEvent<{ messages: ChatMessage[] }>).detail?.messages;
+      if (!msgs?.length) return;
+      setMessages(msgs);
+      setStreaming(false);
+      history.replaceState({ messages: msgs }, "");
+    };
+    window.addEventListener("ramble:restore", handler);
+    return () => window.removeEventListener("ramble:restore", handler);
+  }, []);
+
   const streamingRef = useRef(false);
   useEffect(() => { streamingRef.current = streaming; }, [streaming]);
 

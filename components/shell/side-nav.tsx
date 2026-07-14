@@ -33,29 +33,66 @@ function histTs(h: number, m: number): Date {
 }
 
 const HISTORY = [
-  { id: "h1", title: "who is json? is he a celebrity or something?",
-    userTime: histTs(9, 14),  assistantTime: histTs(9, 15) },
-  { id: "h2", title: "explain design tokens to me like I'm 5",
-    userTime: histTs(11, 27), assistantTime: histTs(11, 28) },
-  { id: "h3", title: "is hallucination when the AI lies or when I haven't slept in 30 hours?",
-    userTime: histTs(13, 43), assistantTime: histTs(13, 44) },
-  { id: "h4", title: "what's a design sprint? do I need running shoes?",
-    userTime: histTs(15, 51), assistantTime: histTs(15, 52) },
-  { id: "h5", title: "is 'kill the process' a threat? should I call someone?",
-    userTime: histTs(17, 58), assistantTime: histTs(17, 59) },
-  { id: "h6", title: "REST api, is that where I go when I'm tired?",
-    userTime: histTs(20, 14), assistantTime: histTs(20, 15) },
+  {
+    id: "h1",
+    title: "who is json? is he a celebrity or something?",
+    userTime: histTs(9, 14), assistantTime: histTs(9, 15),
+    response: "JSON — JavaScript Object Notation — is not a celebrity, though he does show up everywhere uninvited. He's a lightweight data format that lets systems talk to each other. Think of him as the universal translator of the internet: structured, no-nonsense, and fluent in every language as long as it's curly braces and quotes.",
+  },
+  {
+    id: "h2",
+    title: "explain design tokens to me like I'm 5",
+    userTime: histTs(11, 27), assistantTime: histTs(11, 28),
+    response: "Okay. Imagine your favorite crayon color is called 'David Blue.' Instead of telling every coloring book page to use crayon #4B7BE5, you just say 'use David Blue.' Design tokens are that — names for colors, sizes, and spacing so your whole design speaks one language. Change David Blue once, it updates everywhere.",
+  },
+  {
+    id: "h3",
+    title: "is hallucination when the AI lies or when I haven't slept in 30 hours?",
+    userTime: histTs(13, 43), assistantTime: histTs(13, 44),
+    response: "Both, technically. For AI, hallucination is when the model confidently states something completely false — like inventing a citation, a person, or a product that doesn't exist. For you at hour 30, it's roughly the same thing. The key difference: I know I'm doing it. You probably don't.",
+  },
+  {
+    id: "h4",
+    title: "what's a design sprint? do I need running shoes?",
+    userTime: histTs(15, 51), assistantTime: histTs(15, 52),
+    response: "No shoes required, but caffeine helps. A design sprint is a five-day process (Google Ventures popularized it) where a team defines a problem, sketches ideas, picks the best one, builds a prototype, and tests it with real users — all in one week. It's designed to compress months of back-and-forth into something you can actually learn from.",
+  },
+  {
+    id: "h5",
+    title: "is 'kill the process' a threat? should I call someone?",
+    userTime: histTs(17, 58), assistantTime: histTs(17, 59),
+    response: "It's a command, not a threat — though I understand the concern. In computing, a 'process' is a running program. When it freezes or misbehaves, you kill it. You're telling the operating system to stop that specific task. No authorities need to be notified. Unless the process in question was your entire afternoon.",
+  },
+  {
+    id: "h6",
+    title: "REST api, is that where I go when I'm tired?",
+    userTime: histTs(20, 14), assistantTime: histTs(20, 15),
+    response: "That would be a nap, and yes, also recommended. REST API stands for Representational State Transfer — it's a set of rules for how apps communicate over the web. When your phone checks the weather, it's probably making a REST call. It asks a server for data using simple HTTP requests, and the server responds. Calm, structured, and nothing like actual rest.",
+  },
 ];
 
 /* ─── History item ────────────────────────────────────────────────────────── */
-function HistoryItem({ title, onSelect }: {
+function HistoryItem({ title, response, userTime, assistantTime, onSelect }: {
   title: string;
+  response: string;
+  userTime: Date;
+  assistantTime: Date;
   onSelect?: () => void;
 }) {
   const router = useRouter();
   const handleClick = () => {
     onSelect?.();
-    router.push("/");
+    const messages = [
+      { id: `hist-u-${title}`, role: "user" as const,      content: title,    timestamp: userTime      },
+      { id: `hist-a-${title}`, role: "assistant" as const, content: response, timestamp: assistantTime },
+    ];
+    const dispatch = () => window.dispatchEvent(new CustomEvent("ramble:restore", { detail: { messages } }));
+    if (window.location.pathname !== "/") {
+      router.push("/");
+      setTimeout(dispatch, 150);
+    } else {
+      dispatch();
+    }
   };
   return (
     <button
@@ -326,7 +363,7 @@ export default function SideNav({
                     </p>
                     <div className="flex flex-col py-1">
                       {HISTORY.map((h) => (
-                        <HistoryItem key={h.id} title={h.title} onSelect={() => { setHistoryOpen(false); onClose?.(); }} />
+                        <HistoryItem key={h.id} title={h.title} response={h.response} userTime={h.userTime} assistantTime={h.assistantTime} onSelect={() => { setHistoryOpen(false); onClose?.(); }} />
                       ))}
                     </div>
                   </div>
@@ -343,7 +380,7 @@ export default function SideNav({
                 </p>
                 <div className="flex flex-col gap-1">
                   {HISTORY.map((h) => (
-                    <HistoryItem key={h.id} title={h.title} onSelect={() => onClose?.()} />
+                    <HistoryItem key={h.id} title={h.title} response={h.response} userTime={h.userTime} assistantTime={h.assistantTime} onSelect={() => onClose?.()} />
                   ))}
                 </div>
               </div>
