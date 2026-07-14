@@ -33,10 +33,6 @@ export const metadata: Metadata = {
   description:
     "Product designer with 10+ years in UX strategy, design systems, brand identity, and AI-native product design.",
   keywords: ["product design", "UX", "design systems", "AI", "UI designer"],
-  icons: {
-    icon: "/icon.png",
-    apple: "/icon.png",
-  },
   openGraph: {
     title: "ramble — David Rivas, Product Designer",
     description:
