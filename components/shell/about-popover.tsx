@@ -53,28 +53,58 @@ export default function AboutPopover({
     if (!mounted) return null;
     return createPortal(
       <div
-        className="fixed inset-0 z-[9999] flex items-center justify-center p-5"
-        style={{ background: "rgba(0,0,0,0.65)", backdropFilter: "blur(4px)", animation: "fade-up 150ms ease-out both" }}
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 9999,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "20px",
+          background: "rgba(0,0,0,0.65)",
+          backdropFilter: "blur(4px)",
+          WebkitBackdropFilter: "blur(4px)",
+          animation: "fade-up 150ms ease-out both",
+        }}
         onClick={(e) => { if (closeable && e.target === e.currentTarget) onClose(); }}
       >
         <div
           ref={ref}
-          className="relative w-full max-w-sm flex flex-col gap-3 rounded-2xl p-5"
           style={{
+            position: "relative",
+            width: "100%",
+            maxWidth: 384,
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+            borderRadius: 16,
+            padding: 20,
             background: "var(--card)",
             border: "1px solid rgba(210,207,203,0.12)",
             boxShadow: "0 25px 50px rgba(0,0,0,0.5)",
           }}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-center justify-between">
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <p style={{ fontSize: 14, fontWeight: 600, color: "var(--foreground)", lineHeight: "20px" }}>
               About ramble
             </p>
             <button
               onClick={onClose}
-              className="flex h-7 w-7 items-center justify-center rounded-full transition-opacity hover:opacity-60"
-              style={{ color: "var(--muted-foreground)" }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 28,
+                height: 28,
+                borderRadius: "50%",
+                color: "var(--muted-foreground)",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                opacity: 1,
+                flexShrink: 0,
+              }}
               aria-label="Close"
             >
               <X size={13} />
