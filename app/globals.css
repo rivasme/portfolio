@@ -218,6 +218,13 @@
     border-radius: 9999px;
   }
 
+  /* prevent iOS Safari auto-zoom on input focus (triggers when font-size < 16px) */
+  @media screen and (max-width: 1024px) {
+    input, textarea, select {
+      font-size: 16px !important;
+    }
+  }
+
   /* font awesome helper */
   .fa, .fa-thin, .fa-light, .fa-regular, .fa-solid {
     font-family: "Font Awesome 7 Pro";
