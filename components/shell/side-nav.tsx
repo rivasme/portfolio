@@ -53,9 +53,14 @@ function HistoryItem({ title, onSelect }: {
   title: string;
   onSelect?: () => void;
 }) {
+  const router = useRouter();
+  const handleClick = () => {
+    onSelect?.();
+    router.push("/");
+  };
   return (
     <button
-      onClick={onSelect}
+      onClick={handleClick}
       className="flex w-full items-center gap-2 overflow-hidden rounded-md px-3 py-1.5 text-left hover:bg-[rgba(210,207,203,0.06)]"
       style={{ color: "#a19d96" }}
     >
@@ -385,7 +390,7 @@ export default function SideNav({
             {/* About ramble AI — mobile/tablet only */}
             <div className={cn("lg:hidden px-2 relative", isCollapsed && "flex justify-center")}>
               <button
-                onClick={() => setAboutOpen((v) => !v)}
+                onClick={(e) => { e.stopPropagation(); setAboutOpen((v) => !v); }}
                 title="About ramble AI"
                 className={cn(
                   "flex items-center gap-2 rounded-md transition-colors duration-100 text-left",

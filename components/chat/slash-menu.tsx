@@ -12,17 +12,17 @@ export interface SlashCommand {
 }
 
 const SLASH_COMMANDS: SlashCommand[] = [
-  { id: "projects",                          trigger: "projects",                          label: "projects"                          },
-  { id: "projects/sole-lucky",               trigger: "projects/sole-lucky",               label: "projects/sole-lucky",               desc: "Sole Lucky"               },
-  { id: "projects/battery-trader",           trigger: "projects/battery-trader",           label: "projects/battery-trader",           desc: "Battery Trader"           },
-  { id: "projects/design-skills-guardrails", trigger: "projects/design-skills-guardrails", label: "projects/design-skills-guardrails", desc: "Design Skills & Guardrails" },
-  { id: "projects/hithe",                    trigger: "projects/hithe",                    label: "projects/hithe",                    desc: "Hithe"                    },
-  { id: "projects/ramble-ai",                trigger: "projects/ramble-ai",                label: "projects/ramble-ai",                desc: "ramble AI"                },
-  { id: "about",                             trigger: "about",                             label: "about"                             },
-  { id: "testimonials",                      trigger: "testimonials",                      label: "testimonials"                      },
-  { id: "resume",                            trigger: "resume",                            label: "resume"                            },
-  { id: "contact",                           trigger: "contact",                           label: "contact"                           },
-  { id: "skills",                            trigger: "skills",                            label: "skills"                            },
+  { id: "about",                             trigger: "about",                             label: "About",           desc: "More about David Rivas"        },
+  { id: "skills",                            trigger: "skills",                            label: "Skills",          desc: "Design & dev capabilities"     },
+  { id: "resume",                            trigger: "resume",                            label: "Resume",          desc: "Career history & experience"   },
+  { id: "projects",                          trigger: "projects",                          label: "Projects",        desc: "Browse all case studies"       },
+  { id: "testimonials",                      trigger: "testimonials",                      label: "Testimonials",    desc: "What people are saying"        },
+  { id: "contact",                           trigger: "contact",                           label: "Contact",         desc: "Get in touch with David"       },
+  { id: "projects/ramble-ai",                trigger: "projects/ramble-ai",                label: "ramble AI",       desc: "Case study"                    },
+  { id: "projects/hithe",                    trigger: "projects/hithe",                    label: "Hithe",           desc: "Case study"                    },
+  { id: "projects/design-skills-guardrails", trigger: "projects/design-skills-guardrails", label: "Design Skills",   desc: "Case study"                    },
+  { id: "projects/battery-trader",           trigger: "projects/battery-trader",           label: "Battery Trader",  desc: "Case study"                    },
+  { id: "projects/sole-lucky",               trigger: "projects/sole-lucky",               label: "Sole Lucky",      desc: "Case study"                    },
 ];
 
 interface SlashMenuProps {
@@ -40,42 +40,28 @@ export default function SlashMenu({ query, onSelect, onClose, anchorRef }: Slash
     (c) =>
       query === "" ||
       c.trigger.startsWith(query.toLowerCase()) ||
-      c.label.includes(query.toLowerCase()),
+      c.label.toLowerCase().includes(query.toLowerCase()),
   );
 
   useEffect(() => { setActiveIndex(0); }, [query]);
 
-  /* keyboard nav */
   useEffect(() => {
     const handle = (e: KeyboardEvent) => {
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        setActiveIndex((i) => (i + 1) % filtered.length);
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        setActiveIndex((i) => (i - 1 + filtered.length) % filtered.length);
-      } else if (e.key === "Enter") {
-        e.preventDefault();
-        if (filtered[activeIndex]) onSelect(filtered[activeIndex]);
-      } else if (e.key === "Escape") {
-        onClose();
-      }
+      if (e.key === "ArrowDown") { e.preventDefault(); setActiveIndex((i) => (i + 1) % filtered.length); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); setActiveIndex((i) => (i - 1 + filtered.length) % filtered.length); }
+      else if (e.key === "Enter") { e.preventDefault(); if (filtered[activeIndex]) onSelect(filtered[activeIndex]); }
+      else if (e.key === "Escape") { onClose(); }
     };
     window.addEventListener("keydown", handle);
     return () => window.removeEventListener("keydown", handle);
   }, [filtered, activeIndex, onSelect, onClose]);
 
-  /* click outside */
   useEffect(() => {
     const handle = (e: MouseEvent) => {
       if (
-        menuRef.current &&
-        !menuRef.current.contains(e.target as Node) &&
-        anchorRef.current &&
-        !anchorRef.current.contains(e.target as Node)
-      ) {
-        onClose();
-      }
+        menuRef.current && !menuRef.current.contains(e.target as Node) &&
+        anchorRef.current && !anchorRef.current.contains(e.target as Node)
+      ) onClose();
     };
     document.addEventListener("mousedown", handle);
     return () => document.removeEventListener("mousedown", handle);
@@ -89,7 +75,7 @@ export default function SlashMenu({ query, onSelect, onClose, anchorRef }: Slash
       role="listbox"
       aria-label="Commands"
       className={cn(
-        "absolute bottom-full left-0 mb-2 z-50 w-[289px]",
+        "absolute bottom-full left-0 mb-2 z-50 w-full max-w-[289px]",
         "rounded-xl border border-border bg-popover shadow-2xl overflow-hidden",
         "py-1.5",
         "animate-[fade-up_150ms_ease-out]",
