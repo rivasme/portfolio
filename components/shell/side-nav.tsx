@@ -53,9 +53,17 @@ function HistoryItem({ title, onSelect }: {
   title: string;
   onSelect?: () => void;
 }) {
+  const router = useRouter();
+  const handleClick = () => {
+    onSelect?.();
+    if (window.location.pathname !== "/") router.push("/");
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("ramble:query", { detail: { query: title } }));
+    }, window.location.pathname !== "/" ? 200 : 0);
+  };
   return (
     <button
-      onClick={() => onSelect?.()}
+      onClick={handleClick}
       className="flex w-full items-center gap-2 overflow-hidden rounded-md px-3 py-1.5 text-left hover:bg-[rgba(210,207,203,0.06)]"
       style={{ color: "#a19d96" }}
     >

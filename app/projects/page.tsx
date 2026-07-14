@@ -152,7 +152,7 @@ export default function ProjectsPage() {
           </div>
 
           {/* Card grid */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             {sorted.map((p) => (
               <Link
                 key={p.slug}

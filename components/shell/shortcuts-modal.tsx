@@ -52,7 +52,7 @@ export default function ShortcutsModal({ onClose }: ShortcutsModalProps) {
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       <div
-        className="relative w-full max-w-[660px] overflow-hidden rounded-2xl shadow-2xl"
+        className="relative w-full max-w-[660px] overflow-y-auto rounded-2xl shadow-2xl max-h-[90dvh]"
         style={{ background: "var(--accent)", border: "1px solid var(--border)" }}
       >
         {/* Header */}

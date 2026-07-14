@@ -72,7 +72,7 @@ function PlaceholderOverlay({ show }: { show: boolean }) {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute left-3 top-3 flex items-center select-none sm:left-6 sm:top-4"
+      className="pointer-events-none absolute left-4 top-3.5 flex items-center select-none sm:left-6 sm:top-4"
     >
       <span className="text-[15px] leading-6 text-muted-foreground/50">
         {displayed}
@@ -237,14 +237,14 @@ export default function ChatBubble({
         )}
 
         {/* Text input area */}
-        <div className="relative px-3 pt-3 pb-2 sm:px-6 sm:pt-4">
+        <div className="relative px-4 pt-3.5 pb-2 sm:px-6 sm:pt-4">
           <PlaceholderOverlay show={showPlaceholder} />
 
           {/* Colored mirror — shows /commands in orange mono, sits under transparent textarea */}
           {slashBadges.length > 0 && !showPlaceholder && (
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-x-3 top-3 text-[14px] leading-6 whitespace-pre-wrap break-words select-none overflow-hidden sm:inset-x-6 sm:top-4 sm:text-[15px]"
+              className="pointer-events-none absolute inset-x-4 top-3.5 text-[15px] leading-6 whitespace-pre-wrap break-words select-none overflow-hidden sm:inset-x-6 sm:top-4"
               style={{ maxHeight: 160 }}
             >
               {value.split(/(\/[a-zA-Z][\w-]*)/).map((part, i) =>
@@ -269,7 +269,7 @@ export default function ChatBubble({
             aria-label="Message"
             placeholder={streaming ? "Type a message…" : ""}
             className={cn(
-              "w-full resize-none bg-transparent text-[14px] sm:text-[15px] leading-6 outline-none",
+              "w-full resize-none bg-transparent text-[15px] leading-6 outline-none",
               slashBadges.length > 0 ? "text-transparent" : "text-foreground",
               "placeholder:text-muted-foreground/40",
               "max-h-[160px] overflow-y-auto scrollbar-hide",
@@ -286,7 +286,7 @@ export default function ChatBubble({
           {streaming && (
             <div
               aria-hidden
-              className="pointer-events-none absolute left-3 top-3 text-[14px] leading-6 text-muted-foreground/40 select-none sm:left-6 sm:top-4 sm:text-[15px]"
+              className="pointer-events-none absolute left-4 top-3.5 text-[15px] leading-6 text-muted-foreground/40 select-none sm:left-6 sm:top-4"
             >
               Type a message…
             </div>
@@ -294,13 +294,13 @@ export default function ChatBubble({
         </div>
 
         {/* Toolbar */}
-        <div className="flex items-center justify-between px-2 pb-2 pt-1 sm:px-5 sm:pb-3">
+        <div className="flex items-center justify-between px-3 pb-2.5 pt-1 sm:px-5 sm:pb-3">
           {/* Left: add attachment (disabled — feature not available) */}
           <div className="relative group">
             <button
               type="button"
               disabled
-              className="flex h-10 w-10 sm:h-8 sm:w-8 items-center justify-center rounded-lg text-muted-foreground opacity-50 cursor-not-allowed"
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground opacity-50 cursor-not-allowed"
               aria-label="Add attachment"
             >
               <Plus size={16} />
@@ -343,7 +343,7 @@ export default function ChatBubble({
               <button
                 type="button"
                 disabled
-                className="flex h-10 w-10 sm:h-8 sm:w-8 items-center justify-center rounded-lg text-muted-foreground opacity-50 cursor-not-allowed"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground opacity-50 cursor-not-allowed"
                 aria-label="Voice input"
               >
                 <Mic size={16} />
@@ -365,7 +365,7 @@ export default function ChatBubble({
               disabled={disabled || (isEmpty && !streaming)}
               aria-label={streaming ? "Generating…" : "Send message"}
               className={cn(
-                "flex h-10 w-10 sm:h-8 sm:w-8 items-center justify-center rounded-full",
+                "flex h-8 w-8 items-center justify-center rounded-full",
                 "transition-all duration-150",
                 isEmpty && !streaming
                   ? "opacity-25 cursor-not-allowed"

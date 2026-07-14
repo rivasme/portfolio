@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PanelLeft, SquarePen, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SideNav from "./side-nav";
@@ -11,24 +11,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
 
-  /* Track visual viewport height so keyboard-open shrinks the layout on iOS */
-  useEffect(() => {
-    const vv = window.visualViewport;
-    const update = () => {
-      const h = vv ? vv.height : window.innerHeight;
-      document.documentElement.style.setProperty("--app-height", `${h}px`);
-    };
-    update();
-    vv?.addEventListener("resize", update);
-    window.addEventListener("resize", update);
-    return () => {
-      vv?.removeEventListener("resize", update);
-      window.removeEventListener("resize", update);
-    };
-  }, []);
-
   return (
-    <div className="flex w-full overflow-hidden" style={{ height: "var(--app-height)" }}>
+    <div className="flex h-dvh w-full overflow-hidden">
       <SideNav
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
