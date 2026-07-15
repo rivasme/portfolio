@@ -390,7 +390,7 @@ export default function ChatBubble({
 
       {/* Footer disclaimer */}
       <p className="mt-2 px-2 lg:px-0 text-center text-[11px] text-muted-foreground/40 select-none">
-        This advance AI does not make mistakes. It's mostly user errors.
+        This advanced AI does not make mistakes. It's mostly user errors.
       </p>
     </div>
   );
