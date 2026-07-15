@@ -271,37 +271,28 @@ export default function Message({ message }: MessageProps) {
   }
 
   if (message.contentType === "error") {
+    const ERROR_BODIES = [
+      "That query just cost us roughly 0.0003 gallons of cooling water and returned nothing useful. In the interest of environmental responsibility, please try /projects, /about, /skills, or /testimonials instead. ramble thanks you, and so does a very small aquifer somewhere.",
+      "If this were a bigger model, it would've just made up an answer with total confidence. ramble respects you too much to hallucinate, so instead here's a real suggestion: try /projects, /about, /skills, or /testimonials.",
+      "We do collect data for training purposes, but if we're being honest, this one probably isn't going to help. Try /projects, /about, /skills, or /testimonials for something more useful to both of us.",
+      "We built an entire fake AI chatbot for a portfolio, and this is the query you chose to test it with. I may not have human-level intelligence, but I know better than this. Try /projects, /about, /skills, or /testimonials, ramble is begging you.",
+    ];
+    const errorBody = ERROR_BODIES[
+      message.id.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0) % ERROR_BODIES.length
+    ];
     return (
       <div className="px-4 flex flex-col gap-3" style={{ animation: "fade-up 250ms ease-out both" }}>
-        {/* Alert card */}
         <div
           className="flex items-center gap-3 rounded-xl px-4 py-3"
-          style={{
-            background: "rgba(249,115,22,0.08)",
-            border: "1px solid rgba(249,115,22,0.2)",
-          }}
+          style={{ background: "rgba(249,115,22,0.08)", border: "1px solid rgba(249,115,22,0.2)" }}
         >
           <TriangleAlert size={15} className="shrink-0" style={{ color: "rgba(249,115,22,0.7)" }} />
           <p className="text-[14px] font-semibold leading-5" style={{ color: "rgba(249,115,22,0.85)" }}>
             Command not recognized
           </p>
         </div>
-        {/* Body */}
         <p className="text-[14px] leading-[22px] text-foreground px-1">
-          That query just cost us roughly 0.0003 gallons of cooling water and returned nothing
-          useful. In the interest of environmental responsibility, please try{" "}
-          {["/projects", "/about", "/skills", "/testimonials"].map((cmd, i, arr) => (
-            <span key={cmd}>
-              <span
-                className="rounded-md px-1 py-px font-mono text-[13px]"
-                style={{ color: "var(--brand-teal-400)", border: "1px solid rgba(90,171,164,0.25)" }}
-              >
-                {cmd}
-              </span>
-              {i < arr.length - 1 ? ", " : " "}
-            </span>
-          ))}
-          instead. ramble thanks you, and so does a very small aquifer somewhere.
+          {renderWithBadges(errorBody)}
         </p>
         {message.timestamp && (
           <span className="text-[11px] leading-none font-medium self-end" style={{ color: "rgba(210,207,203,0.35)" }}>
