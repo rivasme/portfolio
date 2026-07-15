@@ -64,7 +64,7 @@ export const SKILLS_SECTIONS: Section[] = [
   {
     id: "skills-certifications",
     type: "muted",
-    content: "Google UX Design Certificate coursework via Coursera — covering UX research, wireframing, prototyping, and high-fidelity design.",
+    content: "Google UX Design Certificate coursework via Coursera, covering UX research, wireframing, prototyping, and high-fidelity design.",
   },
   {
     id: "skills-outro",

@@ -83,7 +83,7 @@ function toDisplayTitle(s: Section): string {
     case "job":
       return `${s.jobTitle} · ${s.company}`;
     case "avatar-quote":
-      return `${s.name} — ${s.title}`;
+      return `${s.name}: ${s.title}`;
     case "outro":
       return "Outro";
     case "meta":

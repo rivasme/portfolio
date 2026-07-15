@@ -9,7 +9,7 @@ export const ABOUT_SECTIONS: Section[] = [
   {
     id: "about-background",
     type: "paragraph",
-    content: "David is a product designer based in Oklahoma with over a decade of experience across UX strategy, product design, brand, and design systems. He likes owning the whole picture — not just the screens, but the strategy behind them and the systems that hold them together.",
+    content: "David is a product designer based in Oklahoma with over a decade of experience across UX strategy, product design, brand, and design systems. He likes owning the whole picture, not just the screens, but the strategy behind them and the systems that hold them together.",
   },
   {
     id: "about-dais",
@@ -24,12 +24,12 @@ export const ABOUT_SECTIONS: Section[] = [
   {
     id: "about-bilingual-ai",
     type: "paragraph",
-    content: "He's bilingual, self-taught, and genuinely fascinated by how much a single designer can build when AI is a real part of the workflow — not just a buzzword attached to it.",
+    content: "He's bilingual, self-taught, and genuinely fascinated by how much a single designer can build when AI is a real part of the workflow, not just a buzzword attached to it.",
   },
   {
     id: "about-next",
     type: "paragraph",
-    content: "Right now he's looking for what's next: a product design role at a company building something worth paying attention to in AI — ideally somewhere he gets to keep doing all of it: strategy, product, brand, and systems.",
+    content: "Right now he's looking for what's next: a product design role at a company building something worth paying attention to in AI, ideally somewhere he gets to keep doing all of it: strategy, product, brand, and systems.",
   },
   {
     id: "about-contact-note",

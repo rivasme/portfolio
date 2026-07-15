@@ -10,25 +10,11 @@ interface CaseStudy {
 
 const CASE_STUDIES: CaseStudy[] = [
   {
-    title: "Sole Lucky",
-    slug: "sole-lucky",
-    company: "Funk Products",
-    description: "A raffle-based sneaker app that replaces resale markup with earned access.",
-    meta: "iOS · Jan–Mar 2023",
-  },
-  {
-    title: "Battery Trader",
-    slug: "battery-trader",
-    company: "PCI Energy Solutions",
-    description: "A web-based, multi-tenant, multi-market ops planning, bidding, and analysis app for battery and renewable site owners.",
-    meta: "SaaS · Sept 2023–Mar 2024",
-  },
-  {
-    title: "Design Skills & Guardrails System",
-    slug: "design-skills-guardrails",
-    company: "Dais Co.",
-    description: "Building AI-readable design systems for Claude Code across product, marketing, and PoC surfaces.",
-    meta: "Nov 2025–Mar 2026",
+    title: "ramble AI",
+    slug: "ramble-ai",
+    company: "Personal Project",
+    description: "A portfolio built as a working AI chatbot, because a static case study grid wasn't going to prove the point.",
+    meta: "Web · Jul 2026",
   },
   {
     title: "Hithe",
@@ -38,11 +24,25 @@ const CASE_STUDIES: CaseStudy[] = [
     meta: "Web · Apr–Jun 2026",
   },
   {
-    title: "ramble AI",
-    slug: "ramble-ai",
-    company: "Personal Project",
-    description: "A portfolio built as a working AI chatbot, because a static case study grid wasn't going to prove the point.",
-    meta: "Web · Jul 2026",
+    title: "Design Skills & Guardrails System",
+    slug: "design-skills-guardrails",
+    company: "Dais Co.",
+    description: "Building AI-readable design systems for Claude Code across product, marketing, and PoC surfaces.",
+    meta: "Nov 2025–Mar 2026",
+  },
+  {
+    title: "Battery Trader",
+    slug: "battery-trader",
+    company: "PCI Energy Solutions",
+    description: "A web-based, multi-tenant, multi-market ops planning, bidding, and analysis app for battery and renewable site owners.",
+    meta: "SaaS · Sept 2023–Mar 2024",
+  },
+  {
+    title: "Sole Lucky",
+    slug: "sole-lucky",
+    company: "Funk Products",
+    description: "A raffle-based sneaker app that replaces resale markup with earned access.",
+    meta: "iOS · Jan–Mar 2023",
   },
 ];
 
@@ -83,9 +83,9 @@ export default function PortfolioContent() {
               >
                 {cs.title}
               </button>
-              {" "}
+              {", "}
               <span className="text-foreground">
-                — {cs.company} {cs.description}
+                {cs.company}. {cs.description}
               </span>
               {" "}
               <em className="text-muted-foreground">{cs.meta}</em>

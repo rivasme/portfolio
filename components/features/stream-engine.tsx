@@ -49,9 +49,12 @@ function Cursor() {
 }
 
 /* ─── Inline link/button renderer  {{label}} → a or button ───────────────── */
-function Inline({ text, links }: { text: string; links?: SectionLink[] }) {
+function Inline({ text, links, teal }: { text: string; links?: SectionLink[]; teal?: boolean }) {
   if (!links?.length) return <>{text}</>;
   const parts = text.split(/(\{\{[^}]+\}\})/g);
+  const linkCls = teal
+    ? "text-[var(--brand-teal-400)] underline underline-offset-2 decoration-[var(--brand-teal-400)]/40 hover:decoration-[var(--brand-teal-400)] transition-colors"
+    : "underline underline-offset-2 decoration-foreground/30 hover:decoration-foreground transition-colors";
   return (
     <>
       {parts.map((part, i) => {
@@ -62,8 +65,7 @@ function Inline({ text, links }: { text: string; links?: SectionLink[] }) {
         if (!link) return <span key={i}>{lbl}</span>;
         if (link.href) {
           return (
-            <a key={i} href={link.href} target="_blank" rel="noopener noreferrer"
-               className="underline underline-offset-2 decoration-foreground/30 hover:decoration-foreground transition-colors">
+            <a key={i} href={link.href} target="_blank" rel="noopener noreferrer" className={linkCls}>
               {lbl}
             </a>
           );
@@ -73,7 +75,7 @@ function Inline({ text, links }: { text: string; links?: SectionLink[] }) {
           return (
             <button key={i}
               onClick={() => window.dispatchEvent(new CustomEvent("ramble:query", { detail: { query: q } }))}
-              className="underline underline-offset-2 decoration-foreground/30 hover:decoration-foreground transition-colors">
+              className={linkCls}>
               {lbl}
             </button>
           );
@@ -325,7 +327,7 @@ function DividerBlock({ active, onComplete }: { active: boolean; onComplete: () 
 function OutroBlock({ content, links }: { content: string; links: SectionLink[] }) {
   return (
     <p className="text-[15px] leading-[26px] text-foreground" style={FADE}>
-      <Inline text={content} links={links} />
+      <Inline text={content} links={links} teal />
     </p>
   );
 }

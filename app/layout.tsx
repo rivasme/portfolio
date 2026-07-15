@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 
 export const viewport: Viewport = {
   viewportFit: "cover",
@@ -27,7 +28,7 @@ const turretRoad = Turret_Road({
 
 export const metadata: Metadata = {
   title: {
-    default: "ramble — David Rivas, Product Designer",
+    default: "ramble | David Rivas, Product Designer",
     template: "%s · ramble",
   },
   description:
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
     apple: "/icon.png",
   },
   openGraph: {
-    title: "ramble — David Rivas, Product Designer",
+    title: "ramble | David Rivas, Product Designer",
     description:
       "Product designer with 10+ years in UX strategy, design systems, brand identity, and AI-native product design.",
     type: "website",
@@ -56,6 +57,7 @@ export default function RootLayout({
     >
       <body className="h-dvh overflow-hidden bg-accent text-foreground antialiased">
         {children}
+        <Analytics />
       </body>
     </html>
   );

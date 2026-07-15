@@ -105,7 +105,7 @@ export const RESUME_SECTIONS: Section[] = [
   {
     id: "resume-certifications",
     type: "muted",
-    content: "Coursera — Google UX Design Certificate coursework, 2022. Covering: Responsive Web Design · High-Fidelity Designs and Prototypes · UX Research and Test Early Concepts · Wireframes and Low-Fidelity Prototypes · UX Design Process: Empathize, Define, and Ideate · Foundation of User Experience.",
+    content: "Coursera: Google UX Design Certificate coursework, 2022. Covering: Responsive Web Design · High-Fidelity Designs and Prototypes · UX Research and Test Early Concepts · Wireframes and Low-Fidelity Prototypes · UX Design Process: Empathize, Define, and Ideate · Foundation of User Experience.",
   },
 
   {
