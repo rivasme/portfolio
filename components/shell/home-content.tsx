@@ -177,6 +177,13 @@ function ConversationView({
   );
 }
 
+/* Extract the slash command from anywhere in the input ("show me /about" → "/about") */
+function resolveCommand(input: string): string {
+  if (input.startsWith("/")) return input;
+  const m = input.match(/\/[\w/-]+/);
+  return m ? m[0] : input;
+}
+
 /* ─── Project slug commands (checked before generic /projects) ───────────── */
 const PROJECT_SLUG_COMMANDS: Array<{ pattern: RegExp; slug: string }> = [
   { pattern: /^\/projects\/sole-lucky\b/i,               slug: "sole-lucky"               },
@@ -262,7 +269,8 @@ export default function HomeContent() {
     const assistantId = `a-${Date.now() + 1}`;
 
     /* Project slug commands — /projects/[slug] */
-    const projSlugMatch = PROJECT_SLUG_COMMANDS.find((c) => c.pattern.test(trimmed));
+    const cmd = resolveCommand(trimmed);
+    const projSlugMatch = PROJECT_SLUG_COMMANDS.find((c) => c.pattern.test(cmd));
     if (projSlugMatch) {
       const assistantMsg: ChatMessage = { id: assistantId, role: "assistant", content: "", thinking: true };
       setMessages((prev) => [...prev, userMsg, assistantMsg]);
@@ -281,7 +289,7 @@ export default function HomeContent() {
     }
 
     /* Rich content commands — thinking delay then staggered reveal */
-    const richMatch = RICH_COMMANDS.find((c) => c.pattern.test(trimmed));
+    const richMatch = RICH_COMMANDS.find((c) => c.pattern.test(cmd));
     if (richMatch) {
       const assistantMsg: ChatMessage = { id: assistantId, role: "assistant", content: "", thinking: true };
       setMessages((prev) => [...prev, userMsg, assistantMsg]);
@@ -396,7 +404,8 @@ export default function HomeContent() {
       const assistantId = `a-${now + 1}`;
 
       /* Project slug commands */
-      const projSlugMatch = PROJECT_SLUG_COMMANDS.find((c) => c.pattern.test(trimmed));
+      const cmd = resolveCommand(trimmed);
+      const projSlugMatch = PROJECT_SLUG_COMMANDS.find((c) => c.pattern.test(cmd));
       if (projSlugMatch) {
         const thinkingMsg: ChatMessage = { id: assistantId, role: "assistant", content: "", thinking: true };
         setMessages((prev) => [...prev, userMsg, thinkingMsg]);
@@ -416,7 +425,7 @@ export default function HomeContent() {
       }
 
       /* Route rich commands the same way handleSubmit does */
-      const richMatch = RICH_COMMANDS.find((c) => c.pattern.test(trimmed));
+      const richMatch = RICH_COMMANDS.find((c) => c.pattern.test(cmd));
       if (richMatch) {
         const thinkingMsg: ChatMessage = { id: assistantId, role: "assistant", content: "", thinking: true };
         setMessages((prev) => [...prev, userMsg, thinkingMsg]);
