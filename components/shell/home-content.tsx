@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { ChevronDown } from "lucide-react";
 import ChatBubble from "@/components/chat/chat-bubble";
-import Message, { type ChatMessage } from "@/components/chat/message";
+import Message, { type ChatMessage, ERROR_BODIES } from "@/components/chat/message";
 
 
 /* ─── Landing view ───────────────────────────────────────────────────────── */
@@ -39,7 +39,7 @@ function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
               style={{ color: "rgba(210,207,203,0.75)" }}
             >
               <span style={{ color: "var(--brand-teal-400)" }}>Tangent 90°</span>
-              {" "}access has been extended until July 27, 2026, or until Sol ships, whichever comes first.
+              {" "}access has been extended until further notice, or until Mythos comes back, whichever comes first.
             </p>
             <ChatBubble onSubmit={onSubmit} />
           </div>
@@ -76,7 +76,7 @@ function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
             style={{ color: "rgba(210,207,203,0.75)" }}
           >
             <span style={{ color: "var(--brand-teal-400)" }}>Tangent 90°</span>
-            {" "}access has been extended until July 27, 2026, or until Sol ships, whichever comes first.
+            {" "}access has been extended until further notice, or until Mythos comes back, whichever comes first.
           </p>
           <ChatBubble onSubmit={onSubmit} />
         </div>
@@ -168,7 +168,7 @@ function ConversationView({
         <div className="mx-auto max-w-[740px] w-full">
           <p className="mb-2 px-2 lg:px-0 text-[12px] leading-5 text-left lg:text-center font-medium" style={{ color: "rgba(210,207,203,1)" }}>
             <span style={{ color: "var(--brand-teal-400)" }}>Tangent 90°</span>
-            {" "}access has been extended until July 27, 2026, or until Sol ships, whichever comes first.
+            {" "}access has been extended until further notice, or until Mythos comes back, whichever comes first.
           </p>
           <ChatBubble onSubmit={onSubmit} streaming={streaming} />
         </div>
@@ -261,6 +261,16 @@ export default function HomeContent() {
   const streamingRef = useRef(false);
   useEffect(() => { streamingRef.current = streaming; }, [streaming]);
 
+  /* Track the last "command not recognized" body so we never show the same one twice in a row */
+  const lastErrorIndexRef = useRef(-1);
+  const pickErrorIndex = useCallback(() => {
+    if (ERROR_BODIES.length <= 1) return 0;
+    let next = Math.floor(Math.random() * ERROR_BODIES.length);
+    if (next === lastErrorIndexRef.current) next = (next + 1) % ERROR_BODIES.length;
+    lastErrorIndexRef.current = next;
+    return next;
+  }, []);
+
   const handleSubmit = useCallback((value: string) => {
     const trimmed = value.trim();
     if (!trimmed || streaming) return;
@@ -307,7 +317,8 @@ export default function HomeContent() {
       return;
     }
 
-    /* Unrecognized input — show error after thinking delay */
+    /* Unrecognized input — show a randomly chosen error after thinking delay */
+    const errorIndex = pickErrorIndex();
     const assistantMsg: ChatMessage = { id: assistantId, role: "assistant", content: "", thinking: true };
     setMessages((prev) => [...prev, userMsg, assistantMsg]);
     setStreaming(true);
@@ -315,13 +326,13 @@ export default function HomeContent() {
       setMessages((prev) =>
         prev.map((m) =>
           m.id === assistantId
-            ? { ...m, thinking: false, contentType: "error" as const, timestamp: new Date() }
+            ? { ...m, thinking: false, contentType: "error" as const, errorIndex, timestamp: new Date() }
             : m,
         ),
       );
       setStreaming(false);
     }, 4000 + Math.random() * 1000);
-  }, [streaming]);
+  }, [streaming, pickErrorIndex]);
 
   /* Feature trigger from nav (about / testimonials / skills / resume / contact) */
   useEffect(() => {

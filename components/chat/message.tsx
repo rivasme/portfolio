@@ -55,7 +55,18 @@ export interface ChatMessage {
   timestamp?: Date;
   contentType?: "portfolio" | "project" | "about" | "testimonials" | "skills" | "resume" | "contact" | "error";
   projectSlug?: string;
+  errorIndex?: number;
 }
+
+/* Fallback "command not recognized" bodies — one is chosen at random when the
+   error message is created (see home-content.tsx) and pinned via errorIndex so
+   it stays stable across re-renders. */
+export const ERROR_BODIES = [
+  "That query just cost us roughly 0.0003 gallons of cooling water and returned nothing useful. In the interest of environmental responsibility, please try /projects, /about, /skills, or /testimonials instead. ramble thanks you, and so does a very small aquifer somewhere.",
+  "If this were a bigger model, it would've just made up an answer with total confidence. ramble respects you too much to hallucinate, so instead here's a real suggestion: try /projects, /about, /skills, or /testimonials.",
+  "We do collect data for training purposes, but if we're being honest, this one probably isn't going to help. Try /projects, /about, /skills, or /testimonials for something more useful to both of us.",
+  "We built an entire fake AI chatbot for a portfolio, and this is the query you chose to test it with. I may not have human-level intelligence, but I know better than this. Try /projects, /about, /skills, or /testimonials, ramble is begging you.",
+];
 
 interface MessageProps {
   message: ChatMessage;
@@ -271,15 +282,7 @@ export default function Message({ message }: MessageProps) {
   }
 
   if (message.contentType === "error") {
-    const ERROR_BODIES = [
-      "That query just cost us roughly 0.0003 gallons of cooling water and returned nothing useful. In the interest of environmental responsibility, please try /projects, /about, /skills, or /testimonials instead. ramble thanks you, and so does a very small aquifer somewhere.",
-      "If this were a bigger model, it would've just made up an answer with total confidence. ramble respects you too much to hallucinate, so instead here's a real suggestion: try /projects, /about, /skills, or /testimonials.",
-      "We do collect data for training purposes, but if we're being honest, this one probably isn't going to help. Try /projects, /about, /skills, or /testimonials for something more useful to both of us.",
-      "We built an entire fake AI chatbot for a portfolio, and this is the query you chose to test it with. I may not have human-level intelligence, but I know better than this. Try /projects, /about, /skills, or /testimonials, ramble is begging you.",
-    ];
-    const errorBody = ERROR_BODIES[
-      message.id.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0) % ERROR_BODIES.length
-    ];
+    const errorBody = ERROR_BODIES[(message.errorIndex ?? 0) % ERROR_BODIES.length];
     return (
       <div className="px-4 flex flex-col gap-3" style={{ animation: "fade-up 250ms ease-out both" }}>
         <div
