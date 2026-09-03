@@ -36,7 +36,7 @@ function SuggestionRow({ s, onSelect }: { s: Suggestion; onSelect: () => void })
   return (
     <button
       onClick={onSelect}
-      className="w-full rounded-lg px-3 py-2 text-left text-[15px] leading-6 text-foreground cursor-pointer transition-colors duration-100 hover:bg-[rgba(210,207,203,0.06)] active:bg-[rgba(210,207,203,0.12)]"
+      className="w-full rounded-lg px-3 py-2 text-left text-[13px] leading-5 text-foreground cursor-pointer transition-colors duration-100 hover:bg-[rgba(210,207,203,0.06)] active:bg-[rgba(210,207,203,0.12)]"
     >
       {s.before}
       <Badge>{s.badge}</Badge>
@@ -49,7 +49,7 @@ function SuggestionRow({ s, onSelect }: { s: Suggestion; onSelect: () => void })
 export default function SuggestedPrompts({ onSubmit }: { onSubmit: (v: string) => void }) {
   return (
     <div className="mt-6 flex flex-col gap-0.5">
-      <p className="px-3 pb-1 text-[13px] leading-5 text-muted-foreground">Suggested for you:</p>
+      <p className="px-3 pb-1 text-[12px] leading-5 text-muted-foreground">Suggested for you:</p>
       {SUGGESTIONS.map((s) => (
         <SuggestionRow key={s.badge} s={s} onSelect={() => onSubmit(`${s.before}${s.badge}${s.after}`)} />
       ))}
@@ -76,7 +76,7 @@ export function SuggestedPromptsDropdown({ onSubmit }: { onSubmit: (v: string) =
   }, [open]);
 
   return (
-    <div ref={ref} className="relative mb-2 px-2">
+    <div ref={ref} className="relative mt-2 px-2">
       {open && (
         <div
           className="absolute bottom-[calc(100%+8px)] left-2 right-2 z-50 flex flex-col gap-0.5 rounded-xl border border-border p-1 shadow-lg"
@@ -96,8 +96,7 @@ export function SuggestedPromptsDropdown({ onSubmit }: { onSubmit: (v: string) =
       )}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-[13px] leading-5 text-muted-foreground transition-colors hover:bg-[rgba(210,207,203,0.06)]"
-        style={{ background: "rgba(210,207,203,0.06)" }}
+        className="flex items-center gap-1.5 rounded-full px-2 py-1.5 text-[13px] leading-5 text-muted-foreground transition-colors hover:bg-[rgba(210,207,203,0.06)] active:bg-[rgba(210,207,203,0.1)]"
       >
         Suggested for you
         <ChevronDown

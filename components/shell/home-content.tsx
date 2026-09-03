@@ -80,8 +80,8 @@ function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
             <span style={{ color: "var(--brand-teal-400)" }}>Tangent 90°</span>
             {" "}access has been extended until further notice, or until Mythos comes back, whichever comes first.
           </p>
-          <SuggestedPromptsDropdown onSubmit={onSubmit} />
           <ChatBubble onSubmit={onSubmit} />
+          <SuggestedPromptsDropdown onSubmit={onSubmit} />
         </div>
       </div>
 
