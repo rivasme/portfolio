@@ -8,6 +8,17 @@ export const TESTIMONIALS_SECTIONS: Section[] = [
   },
 
   {
+    id: "testimonials-ron-johnson",
+    type: "avatar-quote",
+    avatar: "/images/avatars/ron-johnson.png",
+    name: "Ron Johnson",
+    title: "CTO & Co-Founder",
+    company: "DAIS Co.",
+    quote: "David led the UX design for our flagship application and was instrumental in creating a scalable design system that enabled us to quickly build new experiences while maintaining a consistent, high-quality user interface. He combines strong product thinking with thoughtful design execution, and I'd gladly recommend him to any team looking for an exceptional product designer.",
+  },
+  { id: "testimonials-divider-ron", type: "divider" },
+
+  {
     id: "testimonials-mike-conolly",
     type: "avatar-quote",
     avatar: "/images/avatars/mike-conolly.png",
