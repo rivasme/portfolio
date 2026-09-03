@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { ChevronDown } from "lucide-react";
 import ChatBubble from "@/components/chat/chat-bubble";
+import SuggestedPrompts, { SuggestedPromptsDropdown } from "@/components/chat/suggested-prompts";
 import Message, { type ChatMessage, ERROR_BODIES } from "@/components/chat/message";
 
 
@@ -42,6 +43,7 @@ function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
               {" "}access has been extended until further notice, or until Mythos comes back, whichever comes first.
             </p>
             <ChatBubble onSubmit={onSubmit} />
+            <SuggestedPrompts onSubmit={onSubmit} />
           </div>
         </div>
       </div>
@@ -78,6 +80,7 @@ function LandingView({ onSubmit }: { onSubmit: (v: string) => void }) {
             <span style={{ color: "var(--brand-teal-400)" }}>Tangent 90°</span>
             {" "}access has been extended until further notice, or until Mythos comes back, whichever comes first.
           </p>
+          <SuggestedPromptsDropdown onSubmit={onSubmit} />
           <ChatBubble onSubmit={onSubmit} />
         </div>
       </div>
