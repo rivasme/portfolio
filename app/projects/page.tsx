@@ -20,6 +20,7 @@ const PROJECTS = [
     slug: "sole-lucky",
     title: "Sole Lucky",
     description: "A raffle-based sneaker app that replaces resale markup with earned access.",
+    hero: "/images/sole-lucky/hero-1.png",
     updated: "Updated Mar 2023",
     order: 1,
   },
@@ -27,6 +28,7 @@ const PROJECTS = [
     slug: "battery-trader",
     title: "Battery Trader",
     description: "A web-based, multi-tenant, multi-market ops planning, bidding, and analysis app for battery and renewable site owners.",
+    hero: "/images/battery-trader/hero-1.png",
     updated: "Updated Mar 2024",
     order: 2,
   },
@@ -34,6 +36,7 @@ const PROJECTS = [
     slug: "design-skills-guardrails",
     title: "Design Skills & Guardrails System",
     description: "Building AI-readable design systems for Claude Code across product, marketing, and PoC surfaces.",
+    hero: "/images/design-skills/hero.png",
     updated: "Updated Nov 2025",
     order: 3,
   },
@@ -41,6 +44,7 @@ const PROJECTS = [
     slug: "hithe",
     title: "Hithe",
     description: "An LLM gateway built for regulated industries, sitting between client applications and upstream model providers to meter, govern, and audit API traffic.",
+    hero: "/images/hithe/hero-1.png",
     updated: "Updated Jun 2026",
     order: 4,
   },
@@ -48,6 +52,7 @@ const PROJECTS = [
     slug: "ramble-ai",
     title: "ramble AI",
     description: "A portfolio built as a working AI chatbot, because a static case study grid wasn't going to prove the point.",
+    hero: "/images/ramble/hero.png",
     updated: "Updated Jul 2026",
     order: 5,
   },
@@ -157,13 +162,25 @@ export default function ProjectsPage() {
               <Link
                 key={p.slug}
                 href={`/projects/${p.slug}`}
-                className="flex flex-col p-4 border border-border rounded-2xl min-h-[200px] transition-colors duration-100 hover:bg-[rgba(210,207,203,0.06)]"
+                className="flex flex-col overflow-hidden border border-border rounded-2xl min-h-[200px] transition-colors duration-100 hover:bg-[rgba(210,207,203,0.06)]"
               >
-                <div className="flex flex-col gap-1.5 flex-1">
-                  <p className="text-[16px] font-medium leading-[24px] text-foreground">{p.title}</p>
-                  <p className="text-[14px] leading-[21px] text-foreground">{p.description}</p>
+                {/* Full-width hero banner */}
+                <div className="w-full aspect-[740/277] overflow-hidden border-b border-border">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={p.hero}
+                    alt={`${p.title} preview`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
-                <p className="text-[12px] leading-5 text-muted-foreground mt-8">{p.updated}</p>
+                <div className="flex flex-col flex-1 p-4">
+                  <div className="flex flex-col gap-1.5 flex-1">
+                    <p className="text-[16px] font-medium leading-[24px] text-foreground">{p.title}</p>
+                    <p className="text-[14px] leading-[21px] text-foreground">{p.description}</p>
+                  </div>
+                  <p className="text-[12px] leading-5 text-muted-foreground mt-8">{p.updated}</p>
+                </div>
               </Link>
             ))}
           </div>
