@@ -6,6 +6,7 @@ import { PanelLeft, SquarePen, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SideNav from "./side-nav";
 import AboutPopover from "./about-popover";
+import Lightbox from "./lightbox";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -86,6 +87,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </main>
       </div>
 
+      <Lightbox />
     </div>
   );
 }

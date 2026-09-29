@@ -89,6 +89,27 @@ function Inline({ text, links, teal }: { text: string; links?: SectionLink[]; te
 /* ─── Shared appear animation ─────────────────────────────────────────────── */
 const FADE: React.CSSProperties = { animation: "fade-up 220ms ease-out both" };
 
+/* ─── Click-to-magnify image ──────────────────────────────────────────────── */
+/* Every case-study image routes through this so it opens in the global Lightbox
+   (mounted once in AppShell) via the ramble:lightbox event. */
+function ZoomImg({ className = "", src, alt = "", ...rest }: React.ImgHTMLAttributes<HTMLImageElement>) {
+  return (
+    /* eslint-disable-next-line @next/next/no-img-element */
+    <img
+      src={src}
+      alt={alt}
+      className={`cursor-zoom-in ${className}`.trim()}
+      onClick={() => {
+        if (!src) return;
+        window.dispatchEvent(
+          new CustomEvent("ramble:lightbox", { detail: { src: String(src), alt: String(alt) } }),
+        );
+      }}
+      {...rest}
+    />
+  );
+}
+
 /* ─── Block components ────────────────────────────────────────────────────── */
 
 function HeadingBlock({ content, active, onComplete }: { content: string; active: boolean; onComplete: () => void }) {
@@ -343,8 +364,7 @@ function ImageBlock({ src, alt, aspectRatio, height, active, onComplete }: {
     return () => clearTimeout(id);
   }, [active]);
   return (
-    /* eslint-disable-next-line @next/next/no-img-element */
-    <img
+    <ZoomImg
       src={src}
       alt={alt}
       className="w-full rounded-xl object-cover"
@@ -385,8 +405,7 @@ function ImageGridBlock({ images, columns, active, onComplete }: {
                   {img.columnLabel}
                 </p>
               )}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={img.src} alt={img.alt} className="w-full rounded-xl object-cover" style={{ aspectRatio: img.aspectRatio }} />
+              <ZoomImg src={img.src} alt={img.alt} className="w-full rounded-xl object-cover" style={{ aspectRatio: img.aspectRatio }} />
               {cap && (
                 <>
                   <div style={{ width: 1, height: 40, background: "var(--border)" }} />
@@ -409,8 +428,7 @@ function ImageGridBlock({ images, columns, active, onComplete }: {
   return (
     <div className="flex gap-4" style={{ ...FADE, alignItems: "flex-start" }}>
       {images.map((img, i) => (
-        /* eslint-disable-next-line @next/next/no-img-element */
-        <img
+        <ZoomImg
           key={i}
           src={img.src}
           alt={img.alt}
@@ -630,8 +648,7 @@ function SplitBlock({ heading, content, src, alt, aspectRatio, active, onComplet
         {heading && <p className="text-[15px] font-semibold leading-6 text-foreground">{heading}</p>}
         <p className="text-[14px] leading-[26px] text-foreground">{content}</p>
       </div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} className="rounded-xl object-cover min-w-0" style={{ flex: "0 0 44%", aspectRatio }} />
+      <ZoomImg src={src} alt={alt} className="rounded-xl object-cover min-w-0" style={{ flex: "0 0 44%", aspectRatio }} />
     </div>
   );
 }
@@ -860,14 +877,12 @@ function SplitStackBlock({ left, right, active, onComplete }: {
     <div style={{ ...FADE, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, minHeight: 480 }}>
       <div style={{ display: "flex", flexDirection: "column", gap: 12, minHeight: 0 }}>
         {left.map((img, i) => (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img key={i} src={img.src} alt={img.alt}
+          <ZoomImg key={i} src={img.src} alt={img.alt}
             className="rounded-xl"
             style={{ flex: 1, minHeight: 0, width: "100%", objectFit: "cover" }} />
         ))}
       </div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={right.src} alt={right.alt}
+      <ZoomImg src={right.src} alt={right.alt}
         className="rounded-xl"
         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
     </div>
@@ -895,8 +910,7 @@ function TextGalleryBlock({ heading, content, images, active, onComplete }: {
       </div>
       <div style={{ flex: "1 1 0", minWidth: 0, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
         {images.map((img, i) => (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img key={i} src={img.src} alt={img.alt}
+          <ZoomImg key={i} src={img.src} alt={img.alt}
             className="rounded-xl"
             style={{ gridColumn: img.span ? "1 / -1" : undefined, width: "100%", aspectRatio: img.aspectRatio, objectFit: "cover", display: "block" }} />
         ))}
